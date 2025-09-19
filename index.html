@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Layout</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #011222;
+      color: #fff;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .sidebar .nav-link {
+      color: #fff;
+    }
+    .sidebar .nav-link.active {
+      background-color: #03274b;
+    }
+    .main {
+      margin-left: 220px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar{
+      background-color: #01162b;
+    }
+    .nav-link{
+      color: #f8f9fa;
+    }
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+  </style>
+</head>
+    <body>
+
+        <!-- Sidebar -->
+        <aside class="sidebar p-3">
+        <h5 class="text-white mb-4">My Dashboard</h5>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="#">Dashboard</a>
+            <a class="nav-link" href="#">Orders</a>
+            <a class="nav-link" href="#">Products</a>
+            <a class="nav-link" href="#">Customers</a>
+            <a class="nav-link" href="#">Reports</a>
+            <a class="nav-link" href="#">Settings</a>
+        </nav>
+        </aside>
+
+        <div class="main">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <!-- Search Input -->
+                <form class="d-flex me-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <!-- Menu -->
+                <ul class="navbar-nav gap-4">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <main class="content">
+            <div class="d-flex justify-content-md-between py-3">
+            <h3>List Products</h3>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahProduct" id="tambah-Product">Add Product</button>
+            </div>
+            <div id="list-view">
+                <table class="table">
+                    <thead class="table-danger">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="productTable">
+                    <!-- Data -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        </div>
+
+        <!-- Modal Add Product -->
+        <div class="modal" tabindex="-1" id="tambahProduct">
+        <div class="modal-dialog">
+            <div class="modal-content px-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Products</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="add-form" class="row g-3">
+                <div>
+                    <label for="productname" class="form-label">Product</label>
+                    <input type="text" class="form-control" id="add-productname" required>
+                </div>
+                <div>
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="add-quantity" required>
+                </div>
+                <div>
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="add-price" required>
+                </div>
+                <select class="form-select form-select-sm" id="add-status" required>
+                    <option value="" selected disabled>Pilih Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+        <!-- Modal Edit Product -->
+        <div class="modal" tabindex="-1" id="editProduct">
+        <div class="modal-dialog">
+            <div class="modal-content px-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Products</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="edit-form" class="row g-3">
+                <div>
+                    <label for="productname" class="form-label">Product</label>
+                    <input type="text" class="form-control" id="edit-productname" required>
+                </div>
+                <div>
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="edit-quantity" required>
+                </div>
+                <div>
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="edit-price" required>
+                </div>
+                <select class="form-select form-select-sm" id="edit-status" required>
+                    <option value="" selected disabled>Pilih Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete Product</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+        // Modal setup
+        const modalEl = document.getElementById('tambahProduct');
+        const modal = new bootstrap.Modal(modalEl);
+        const addForm = document.getElementById('add-form');
+        const editForm = document.getElementById('edit-form');
+        const Data = document.getElementById('productTable');
+        const listView = document.getElementById('list-view');
+        const editView = document.getElementById('editProduct');
+        const addView = document.getElementById('tambahProduct');
+
+        let products = [
+            { id:1, name: "iPhone 15", qty: 2, price: "15.000.000", status: "Completed" },
+            { id:2, name: "Macbook Pro", qty: 1, price: "25.000.000", status: "Pending" },
+            { id:3, name: "AirPods Pro", qty: 3, price: "3.500.000", status: "Cancelled" }
+        ];
+
+        let currentProduct = null;
+        function renderProductList () {
+            Data.innerHTML = '';
+            products.forEach((product,index)=> {
+            const row = `
+                <tr>
+                <td>${index+1}</td>
+                <td>${product.name}</td>
+                <td>${product.qty}</td>
+                <td>Rp. ${product.price}</td>
+                <td>
+                    <span class="badge ${
+                    product.status === "Completed"
+                        ? "bg-success"
+                        : product.status === "Pending"
+                        ? "bg-warning text-dark"
+                        : "bg-danger"
+                    }">${product.status}</span>
+                </td>
+                <td>
+                    <button data-id="${product.id}"  data-bs-toggle="modal" data-bs-target="#editProduct" class="btn btn-sm btn-primary edit-button">Edit</button>
+                    <button data-id="${product.id}" class="btn btn-sm btn-danger delete-button">Delete</button>
+                </td>
+                </tr>
+            `;
+            Data.innerHTML += row;
+            });
+            // edit
+            document.querySelectorAll('.edit-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    currentProduct = products.find(p => p.id === productId);
+                    if (currentProduct){
+                        showEditView();
+                    }
+                })
+            });
+            // Delete button
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    const confirmed = confirm('Anda yakin ingin menghapus produk ini?');
+                    if (confirmed) {
+                        products = products.filter(p => p.id !== productId);
+                        alert('Product berhasil dihapus!');
+                        renderProductList();
+                    }
+                });
+            });
+        }
+
+        function showEditView(){
+            document.getElementById('edit-productname').value = currentProduct.name;
+            document.getElementById('edit-quantity').value = currentProduct.qty;
+            document.getElementById('edit-price').value = currentProduct.price;
+            document.getElementById('edit-status').value = currentProduct.status;
+        }
+
+        function showListView (){
+            listView.classList.remove('d-none');
+            editView.classList.add('d-none');
+            addView.classList.add('d-none');
+        }
+        // Add product
+        addForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newProduct = {
+            id: products.length > 0 ? Math.max(...products.map(c => c.id)) + 1 : 1,
+            name : document.getElementById('add-productname').value,
+            qty : document.getElementById('add-quantity').value,
+            price : document.getElementById('add-price').value,
+            status : document.getElementById('add-status').value,
+            };
+
+            products.push(newProduct);
+            alert('Product berhasil di tambahkan!');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('tambahProduct'));
+            modal.hide();
+            renderProductList();
+        });
+        // Edit Product 
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const updateData ={
+                name : document.getElementById('edit-productname').value,
+                qty : document.getElementById('edit-quantity').value,
+                price : document.getElementById('edit-price').value,
+                status : document.getElementById('edit-status').value,
+            };
+            Object.assign(currentProduct, updateData);
+
+            alert('perubahan data berhasil');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editProduct'));
+            modal.hide();
+
+            renderProductList();
+        });
+
+        renderProductList();
+        </script>
+    </body>
+</html>
